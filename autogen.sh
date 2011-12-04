@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run this to set up the build system: configure, makefiles, etc.
 
-package="SilentJack"
+package="mochad"
 
 
 srcdir=`dirname $0`
@@ -35,14 +35,6 @@ DIE=0
     DIE=1
 }
 
-(pkg-config --version) < /dev/null > /dev/null 2>&1 || {
-    echo
-    echo "You must have pkg-config installed to compile $package."
-    echo "Download the appropriate package for your system,"
-    echo "or get the source from http://pkgconfig.freedesktop.org/"
-    DIE=1
-}
-
 
 if test "$DIE" -eq 1; then
     exit 1
@@ -67,7 +59,6 @@ if [ ! -d "$srcdir/build-scripts" ]; then
 fi
 
 run_cmd aclocal
-run_cmd autoheader
 run_cmd automake --add-missing --copy
 run_cmd autoconf
 
