@@ -28,7 +28,7 @@ The usual pattern for building the code applies.
 
     tar xzf mochad-...tar.gz
     cd mochad-...
-    ./configure
+    ./autogen.sh
     make
     sudo make install
 
