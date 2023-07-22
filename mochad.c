@@ -537,6 +537,9 @@ static void sighandler(int signum)
     Do_exit = 1;	
 }
 
+int PollTimeOut=-1;
+
+
 static int mydaemon(void)
 {
     int nready, i;
