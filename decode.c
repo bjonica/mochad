@@ -23,7 +23,12 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <sys/timeb.h>
+#if 0
+  // ftime() has been deprecated
+  #include <sys/timeb.h>
+#else
+  #include <time.h>
+#endif
 #include "global.h"
 #include "decode.h"
 #include "x10state.h"
@@ -586,10 +591,17 @@ typedef uint64_t timems_t;
 /* Get system time in milliseconds */
 static timems_t get_timems(void)
 {
+#if 0
     struct timeb tp;
 
     ftime(&tp);
     return (timems_t) (tp.time * 1000) + tp.millitm;
+#else
+    struct timespec tp;
+
+    clock_gettime(CLOCK_MONOTONIC,&tp);
+    return (timems_t) ( tp.tv_nsec + (1000 * tp.tv_sec) );
+#endif
 }
 
 #define DUP_TIME (650)

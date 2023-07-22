@@ -88,6 +88,11 @@
 #include "x10state.h"
 #include "x10_write.h"
 
+// These are  actually defined in mochad.c, but there's no .h file.
+// So as a quick make-it-available-without-warnings, declare here
+int or20client(int fd);
+int del_client(int fd);
+
 static void strupper(char *buf)
 {
     while (*buf) {

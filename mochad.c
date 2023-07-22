@@ -565,9 +565,17 @@ static int mydaemon(void)
         dbprintf("failed to initialise libusb %d\n", r);
         exit(1);
     }
-    libusb_set_debug(NULL, 3);
-
+    // libusb_set_debug deprecated; the replacement is
+    // libusb_set_option(libusb_context, LIBUSB_OPTION_LOG_LEVEL, libusb_log_level);libusb_set_option(libusb_context, LIBUSB_OPTION_LOG_LEVEL, libusb_log_level);
 #if 0
+    libusb_set_debug(NULL, 3);
+#else
+    libusb_set_option(NULL,
+        LIBUSB_OPTION_LOG_LEVEL,
+        LIBUSB_LOG_LEVEL_INFO); // may be excessive
+#endif
+
+#if 1
     /* This function is not available in older versions of libusb-1.0 */
     r = libusb_pollfds_handle_timeouts(NULL);
     if (!r) {

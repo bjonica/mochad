@@ -20,4 +20,3 @@
 int processcommandline(int fd, char *aLine);
 
 void cm15a_encode(int fd, unsigned char * buf, size_t buflen);
-
